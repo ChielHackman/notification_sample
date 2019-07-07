@@ -1,0 +1,23 @@
+<div class="container">
+  <% if user_signed_in? %>
+    <%= link_to "New post", new_post_path %>
+  <% else %>
+    You need to
+    <%= link_to "login", new_user_session_path %>
+    to create a post.
+  <% end %>
+  <hr />
+  <% @posts.each do |post| %>
+    <div class="row">
+      <div class="col-md-12">
+        <h4>
+          <%= post.title %>
+        </h4>
+        <p>
+          <%= post.body.truncate(200) %>
+          <%= link_to "read more", post_path(post) %>
+        </p>
+      </div>
+    </div>
+  <% end %>
+</div>
