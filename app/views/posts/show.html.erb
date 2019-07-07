@@ -23,4 +23,30 @@
       <h5>Comments</h5>
     </div>
   </div>
+  <% if user_signed_in? && @post.user != current_user %>
+    <div class="row">
+      <div class="col-md-4">
+        <%= form_for [@post, @comment] do |f| %>
+          <div class="form-group">
+            <%= f.text_area :body, class: 'form-control', placeholder: 'Add comment' %>
+          </div>
+          <div class="form-group">
+            <%= f.submit "Save", class: 'btn btn-success btn-sm w-50' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% @post.comments.each do |comment| %>
+    <% next if comment.new_record? %>
+    <div class="row">
+      <div class="col-md-4">
+        <strong>
+          <%= comment.user.email %>
+        </strong>
+        <br />
+        <%= comment.body %>
+      </div>
+    </div>
+  <% end %>
 </div>
